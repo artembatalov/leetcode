@@ -1,0 +1,14 @@
+# Go
+*.exe
+*.test
+*.out
+bin/
+
+# Editors / IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

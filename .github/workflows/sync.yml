@@ -1,0 +1,23 @@
+name: Sync LeetCode
+
+on:
+  workflow_dispatch:        # ручной запуск — используем для разового бэкфилла всех прошлых accepted
+  schedule:
+    - cron: "0 8 * * *"     # ежедневно в 08:00 UTC — досинхронизация новых решений
+
+# Нужно, чтобы Action мог коммитить в репозиторий
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync accepted submissions
+        uses: joshcai/leetcode-sync@v1.6
+        with:
+          github-token: ${{ github.token }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          # filter-duplicate-secs: 86400   # раскомментируй, чтобы для одной задачи брать не больше 1 сабмита в сутки
+          # verbose: true                  # подробный лог, если что-то не синкается
